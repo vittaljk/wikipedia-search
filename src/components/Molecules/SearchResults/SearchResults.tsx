@@ -39,6 +39,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results }) => {
             <div
               style={getVirtualRowStyles({ size, start })}
               key={item.timestamp + index}
+              data-testid="search-result"
             >
               <Atoms.SearchResult result={item} />
             </div>
