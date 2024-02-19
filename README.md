@@ -62,6 +62,14 @@ The custom server is located inside `scripts/server.js`
 git clone https://github.com/vittaljk/wikipedia-search
 ```
 
+```bash
+cd wikipedia-search
+and
+npm install
+# or
+yarn
+```
+
 ### Running the development server:
 
 ```bash
