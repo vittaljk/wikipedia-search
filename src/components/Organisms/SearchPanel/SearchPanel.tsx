@@ -9,12 +9,17 @@ function SearchPanel() {
   const [total, setSearchTotal] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage, setRecordsPerPage] = useState(100);
+  const [searchHistory, setSearchHistory] = useState([]);
 
   const debouncedSearchTextValue = useDebounce<string>(searchText, 500);
 
   function updateSearchText(value: string) {
     setSearchText(value);
   }
+
+  function addToSearchHistory(searchQuery: string) {
+    setSearchHistory(prevHistory => [...prevHistory, searchQuery]);
+  };
 
   async function submitSearch(offset = 0, recordsPerPage = 100) {
     try {
@@ -26,6 +31,7 @@ function SearchPanel() {
       if (response && response.data && response.data.query) {
         setSearchResults(response.data.query.search);
         setSearchTotal(response.data.query.searchinfo.totalhits);
+        addToSearchHistory(searchText);
       }
     } catch (error) {
       console.log(error);
@@ -33,8 +39,6 @@ function SearchPanel() {
   }
 
   useEffect(() => {
-    // Do fetch here...
-    // Triggers when "debouncedSearchTextValue" changes
     if (searchText && searchText.length >= 3) {
       submitSearch();
     }
